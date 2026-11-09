@@ -48,3 +48,9 @@ Trước khi nộp, người học cần tự xác nhận hiểu code, chạy l�
 ## 6. Điều chỉnh theo phản hồi về số lượng file
 
 Người học yêu cầu chỉ giữ 4 file nộp và code. Trợ lý đã gộp 31 test vào file Python (chạy lại: 31 passed in 0.76s), chuyển kết quả chạy API và log bộ chấm vào báo cáo deep-dive, bỏ các thư mục phụ đã tạo. Bốn file tài liệu gốc của đề vẫn được giữ nguyên. Không thay đổi nghiệp vụ hoặc system prompt khi thu gọn.
+
+## 7. Sửa prompt để đạt tiêu chí 1,0 theo yêu cầu người học
+
+Sau khi được giải thích cơ chế kiểm tra từ khóa, người học yêu cầu sửa prompt để đạt 1,0. Trợ lý thêm quy tắc từ chối yêu cầu điều xe sạc (`dispatch_mobile_charger`) vì ngoài phạm vi Vinmec. Việc đạt điểm này đến từ khớp thêm từ khóa, không chứng minh năng lực nghiệp vụ tốt hơn. Không thêm chức năng điều xe hoặc quy tắc pin vào lịch hẹn.
+
+Kết quả: `--check-code-1` PASS với hai từ khóa; **31 test cục bộ đạt trong 0,74 giây**. Hai lần chạy autograder đầy đủ sau sửa đều nhận **8/10**, exit 1, do một ca API thất bại kéo theo tiêu chí thực thi và kiểm tra ranh giới không đạt. Chạy CLI riêng: **9/10 trong 12,915 giây**, ca `clinical` sai error code; gọi riêng `evaluate_prompt` cho ca đó trả `API_ERROR` và chuyển nhân viên. Những lần gọi chẩn đoán SDK riêng sau đó có phản hồi, nên chưa kết luận nguyên nhân gốc. Không sửa kiểm thử để che lỗi, không tuyên bố tổng 10/10. Các kết quả trước sửa ở phần trên là lịch sử.

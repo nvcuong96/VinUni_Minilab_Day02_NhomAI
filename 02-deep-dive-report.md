@@ -2,6 +2,8 @@
 
 **Bài cá nhân — Lab 02. Trạng thái triển khai vận hành: NOT YET.**
 
+**Cập nhật sau yêu cầu sửa prompt:** thêm quy tắc từ chối tác vụ điều xe sạc (`dispatch_mobile_charger`) vì ngoài phạm vi lịch hẹn. Không thêm khả năng điều phối xe. Kiểm tra `--check-code-1` khớp `draft_only` và `dispatch_mobile_charger`, đạt **1,0/1**. Bộ 31 test cục bộ vẫn đạt (0,74 giây). Chạy autograder đầy đủ sau sửa nhận **8/10, exit 1**: tiêu chí prompt đạt, hai tiêu chí thực thi/kiểm thử không đạt. Chạy CLI riêng cho thấy 9/10 ca đạt, ca `clinical` thất bại; chẩn đoán riêng quan sát fallback `API_ERROR`. Không bỏ qua lỗi hoặc đổi đáp án kỳ vọng để tăng điểm. Các kết quả 9,50/10 và đầu ra bên dưới được giữ làm lịch sử trước khi sửa prompt, không phải kết quả phiên bản hiện tại.
+
 ## Bối cảnh và chất lượng bằng chứng
 
 Đây là prototype học tập do AI hỗ trợ triển khai theo lựa chọn của người học. Không có khảo sát nhân viên, truy cập hệ thống Vinmec hoặc dữ liệu bệnh nhân thật. Tất cả mã lịch, tên bác sĩ, cơ sở, lịch trống và số liệu quy trình đều **giả lập**. Kết quả chạy code được gộp trong phụ lục kiểm thử ở cuối báo cáo này.

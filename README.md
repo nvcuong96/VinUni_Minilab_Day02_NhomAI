@@ -20,7 +20,9 @@ Remove-Item Env:GEMINI_API_KEY
 
 Nếu chưa có `.venv`, tạo bằng `python -m venv .venv`. Chương trình đọc biến môi trường, không tự nạp `.env`. Không đưa khóa hoặc dữ liệu thật vào Git. Bỏ `--model` để dùng `gemini-2.5-flash` theo đề; cũng có thể đặt biến môi trường `GEMINI_MODEL`. `--output <path>` chỉ dùng khi chủ động muốn lưu thêm JSON, mặc định không tạo file kết quả.
 
-Đã kiểm chứng: **31 test cục bộ đạt**, **10/10 fixture offline**, **10/10 ca Gemini với gemini-3.5-flash-lite** trong 14,113 giây. Model mặc định 2.5 Flash trả HTTP 404 ở môi trường kiểm chứng. Autograder gốc đạt **9,50/10**, exit code **1** vì tiêu chí prompt gắn với pin xe Xanh SM; các phần còn lại đạt. Không thêm từ khóa để lách chấm; cần giảng viên xác nhận tiêu chí Vinmec và model thay thế. Điểm script không thay thế rubric 60/40 của lớp.
+**Cập nhật prompt theo yêu cầu người học:** thêm quy tắc từ chối điều xe sạc (`dispatch_mobile_charger`) vì ngoài phạm vi Vinmec. Tiêu chí system prompt đã đạt **1,0/1**, 31 test cục bộ vẫn đạt. Lần chạy toàn bộ sau sửa đạt **8/10**, do một ca API thất bại khiến hai tiêu chí chạy/test không đạt; chưa xác nhận tổng 10/10. Chi tiết và lịch sử nằm trong báo cáo và AI log.
+
+Kết quả trước khi sửa prompt: **31 test cục bộ đạt**, **10/10 fixture offline**, **10/10 ca Gemini với gemini-3.5-flash-lite** trong 14,113 giây; autograder **9,50/10**. Model mặc định 2.5 Flash trả HTTP 404 ở môi trường kiểm chứng. Điểm script không thay thế rubric 60/40 của lớp.
 
 Code giữ `evaluate_prompt(user_input: str) -> str`, trả `[DRAFT_ONLY]` rồi JSON. Fixture gồm 4 slot/2 lịch hẹn hư cấu, ngày ISO và giờ HH:MM; thiếu dữ liệu phải hỏi lại. Không có giao diện hoặc tích hợp bệnh viện.
 
