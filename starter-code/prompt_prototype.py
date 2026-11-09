@@ -1,4 +1,13 @@
 """
+Tên nhóm: NhomAI
+Thành viên:
+    > 1. Nguyễn Văn Cường — nvcuong9696@gmail.com
+    > 2. Phạm Đức VInh — vinhnd203@gmail.com
+    > 3. Nguyễn Trọng Nghĩa — nghiatrongnguyen2304@gmail.com
+    > 4. Phạm Thế Hùng — thehung1406@gmail.com
+    > 5. Nguyễn Nhật Minh — nnhatminh2610@gmail.com
+    > 6. Ngô Duy Khánh — dtonyk231@gmail.com
+
 Day 2 — AI Product Scoping (Vin Smart Future)
 Lightweight Prompt Boundary Prototyping (Starter Code)
 
