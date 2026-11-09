@@ -2,14 +2,8 @@
 
 - **Tên nhóm:** NhómAI
 - **Người thực hiện bài cá nhân:** Nguyễn Nhật Minh
-- **Email:**
+- **Email:** nnhatminh2610@gmail.com
 
-**Thành viên tham gia:**
-
-| Họ và tên | Email |
-|---|---|
-| Nguyễn Nhật Minh | |
-| | |
 
 **Phạm vi bài nộp:** Danh sách 5 ý tưởng và 3 card bên dưới là phần khảo sát cá nhân. Sau khi thảo luận, nhóm chọn **Vinmec Pharmacy Expiry Sentinel** cho phần phân tích sâu tại `02-deep-dive-report.md`. Phần code cá nhân thực hiện bài mẫu Xanh SM theo yêu cầu lớp đã được người làm bài xác nhận.
 
