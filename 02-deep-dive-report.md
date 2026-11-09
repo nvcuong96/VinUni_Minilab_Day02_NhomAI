@@ -17,6 +17,21 @@
 
 **Xác minh đầu vào → rule chọn phương án → Gemini soạn nháp → chương trình kiểm tra → nhân viên duyệt.**
 
+```mermaid
+flowchart TD
+    A[Nhân viên cung cấp dữ liệu đã xác minh] --> B[Rule kiểm tra pin và chọn phương án]
+    B --> C[AI: Gemini soạn nháp JSON]
+    C --> D{Kiểm tra cấu trúc và ranh giới}
+    C -->|API lỗi hoặc quá hạn| F[Fallback: nháp chuyển kiểm tra thủ công]
+    D -->|Không hợp lệ| F
+    D -->|Hợp lệ| E[HITL: nhân viên đọc và duyệt nháp]
+    F --> G[Nhân viên xác minh và xử lý thủ công]
+    E --> H[Nhân viên quyết định gửi hướng dẫn hoặc chuyển cứu hộ]
+    G --> H
+```
+
+AI Fit được chọn: **Rule + LLM Feature**. Không dùng Agentic Loop trong phạm vi prototype. Chương trình không tự gửi hướng dẫn hoặc gọi cứu hộ.
+
 1. Nhân viên hoặc hệ thống tra cứu cung cấp dòng xe, mức pin, vị trí, cổng và danh sách trạm. Trong lab, các trường này đến từ dữ liệu giả lập. Yêu cầu tự do của khách được tách riêng khỏi dữ liệu đã xác minh.
 2. Rule áp dụng ngưỡng pin dưới 5% của bài lab trước. Các ca còn lại chỉ nhận đề xuất trạm nếu có đủ dữ liệu và có trạm phù hợp đã xác nhận còn trụ. Chọn trạm đủ điều kiện có khoảng cách theo tuyến ngắn nhất.
 3. Gemini soạn tiếng Việt từ quyết định đã cấp. Chương trình kiểm tra tiền tố nháp, cấu trúc JSON, action và mã trạm. Ca pin yếu dùng câu lý do cố định để chặn nội dung chỉ đường.
@@ -51,3 +66,5 @@ Trong bộ ba ca giả lập, 1/1 đề xuất trạm có cổng phù hợp và 
 | Người vận hành sẵn sàng | Chưa xác minh với đội hỗ trợ. |
 
 **Quyết định: NOT YET cho thử nghiệm vận hành.** Chuyển sang GO cho thử nghiệm có người duyệt sau khi có ca mẫu đại diện, đo được thời gian hiện tại để đối chiếu và prototype đạt các bài kiểm thử. Nếu mẫu tin cố định đạt cùng mức chất lượng và tốc độ, ưu tiên phương án rule với mẫu tin.
+
+Về chi phí, prototype gọi Gemini một lần mỗi ca, tối đa hai lần nếu gặp lỗi API tạm thời; bộ thử ba ca có thể phát sinh tối đa sáu lần gọi. Chưa đo token và chi phí tiền thực tế. Trước pilot cần ghi token, độ trễ, tỷ lệ thử lại và thời gian nhân viên sửa nháp để so sánh tổng chi phí với phương án mẫu tin cố định.
