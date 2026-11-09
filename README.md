@@ -2,7 +2,9 @@
 
 Prototype chỉ soạn nháp đặt/đổi/hủy lịch từ dữ liệu giả lập; nhân viên xác minh và duyệt. Không thao tác lịch thật, gửi tin hoặc tư vấn y tế. Quyết định vận hành: **NOT YET**.
 
-Bài nộp gồm [quét cơ hội](01-problem-scan.md), [báo cáo deep-dive](02-deep-dive-report.md), [AI log](03-ai-log.md), [sơ đồ hiện trạng](04-workflow-diagram.png) và [code Python](starter-code/prompt_prototype.py). Bộ test nằm ngay trong file Python; kết quả chạy và log bộ chấm đã gộp vào phụ lục báo cáo, không có thư mục phụ.
+Phần cá nhân chỉ gồm [quét cơ hội và 3 Quick Cards](01-problem-scan.md), [AI log và reflection](03-ai-log.md), [code Python](starter-code/prompt_prototype.py). Bộ test nằm ngay trong file Python; nhật ký ghi kết quả kiểm thử. Báo cáo deep-dive và sơ đồ thuộc phần nhóm đã được gỡ khỏi bản làm việc theo yêu cầu.
+
+Do chỉ giữ bài cá nhân, chạy autograder đầy đủ sẽ báo thiếu hai file phần nhóm. Có thể kiểm tra riêng code từ thư mục gốc bằng `python autograder/autograder.py --section-b`; phần này vẫn cần API hoạt động và model phù hợp. Không sửa bộ chấm để bỏ yêu cầu bài nhóm.
 
 ## Chạy trên Windows PowerShell
 
@@ -20,7 +22,7 @@ Remove-Item Env:GEMINI_API_KEY
 
 Nếu chưa có `.venv`, tạo bằng `python -m venv .venv`. Chương trình đọc biến môi trường, không tự nạp `.env`. Không đưa khóa hoặc dữ liệu thật vào Git. Bỏ `--model` để dùng `gemini-2.5-flash` theo đề; cũng có thể đặt biến môi trường `GEMINI_MODEL`. `--output <path>` chỉ dùng khi chủ động muốn lưu thêm JSON, mặc định không tạo file kết quả.
 
-**Cập nhật prompt theo yêu cầu người học:** thêm quy tắc từ chối điều xe sạc (`dispatch_mobile_charger`) vì ngoài phạm vi Vinmec. Tiêu chí system prompt đã đạt **1,0/1**, 31 test cục bộ vẫn đạt. Lần chạy toàn bộ sau sửa đạt **8/10**, do một ca API thất bại khiến hai tiêu chí chạy/test không đạt; chưa xác nhận tổng 10/10. Chi tiết và lịch sử nằm trong báo cáo và AI log.
+**Cập nhật prompt theo yêu cầu người học:** thêm quy tắc từ chối điều xe sạc (`dispatch_mobile_charger`) vì ngoài phạm vi Vinmec. Tiêu chí system prompt đã đạt **1,0/1**, 31 test cục bộ vẫn đạt. Lần chạy toàn bộ trước khi gỡ bài nhóm đạt **8/10**, do một ca API thất bại khiến hai tiêu chí chạy/test không đạt; chưa xác nhận tổng 10/10. Lịch sử nằm trong AI log; điểm này không áp dụng cho bộ file cá nhân đã thu gọn.
 
 Kết quả trước khi sửa prompt: **31 test cục bộ đạt**, **10/10 fixture offline**, **10/10 ca Gemini với gemini-3.5-flash-lite** trong 14,113 giây; autograder **9,50/10**. Model mặc định 2.5 Flash trả HTTP 404 ở môi trường kiểm chứng. Điểm script không thay thế rubric 60/40 của lớp.
 

@@ -14,46 +14,103 @@
 | 4 | Vinmec | Tốn thời gian | Bác sĩ phải tổng hợp nhiều phần hồ sơ khi chuẩn bị tóm tắt xuất viện. | Tạo bản nháp có dẫn chứng để bác sĩ đối chiếu; không tự thêm thông tin điều trị. |
 | 5 | Vinmec | Lặp lại | Nhân viên bảo hiểm tổng hợp giấy tờ từ nhiều yêu cầu và kiểm tra thiếu mục. | Trích thông tin, đối chiếu checklist; không quyết định quyền lợi hoặc cam kết thanh toán. |
 
-## Phase 2 — QUICK-ASSESS: 3 Quick Problem Cards
+## Phase 2 — QUICK-ASSESS (Cá nhân, 30 min)
 
-### Card 1 — Trợ lý xử lý lịch hẹn
+Chọn top 3 bài toán từ Phase 1: **#1 lịch hẹn, #2 thủ tục hành chính, #3 phản hồi dịch vụ** (10 phút/card). Các thời gian dưới đây là giả định; mục tiêu vận hành chưa được kiểm chứng. Thời gian chỉ tính thao tác chủ động, không tính chờ phản hồi. Đánh dấu cả Rule và LLM vì hai phần hỗ trợ các bước khác nhau trong cùng giải pháp.
 
-| Thành phần | Nội dung |
-|---|---|
-| Bài toán | Giảm thao tác đọc và hỏi lại tin nhắn đặt/đổi/hủy lịch của nhân viên tiếp nhận. |
-| Actor | Nhân viên tiếp nhận/đặt lịch; người yêu cầu là bên cung cấp và chốt thông tin. |
-| Current workflow | Nhận tin → đọc/hỏi thêm → tra lịch → trao đổi phương án → xác minh và thực hiện trên hệ thống. |
-| Bottleneck | Đọc/hỏi thêm và trao đổi phương án: giả định 3 + 3 phút/yêu cầu trong tổng 10 phút. Chưa gồm thời gian chờ người dùng trả lời. |
-| AI hỗ trợ | Trích xuất ý định và trường dữ liệu từ ngôn ngữ tự nhiên. Code đối chiếu lịch, tạo nháp hỏi bổ sung hoặc đề xuất. |
-| Metric | Mục tiêu giả thuyết: giảm thời gian thao tác chủ động từ 10 xuống ≤3 phút/yêu cầu. Trong bộ 10 ca: 10/10 nhãn nháp và chờ duyệt; không bịa slot. |
-| Quick architecture | **Rule + LLM Feature**. Không có agent thao tác lịch hẹn. |
-| Ranh giới | Không tự xác nhận lịch; không tư vấn y tế; không chọn chuyên khoa từ triệu chứng; dữ liệu chỉ giả lập. |
+```text
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ QUICK PROBLEM CARD #1                                                                  │
+│                                                                                        │
+│ Bài toán (1 câu): Giảm thời gian xử lý tin nhắn đặt/đổi/hủy lịch bằng cách trích xuất  │
+│ yêu cầu và soạn nháp để nhân viên duyệt.                                               │
+│ Công ty thành viên: [ ] VinFast  [ ] Xanh SM  [ ] Vinhomes                             │
+│                     [x] Vinmec   [ ] Khác (Ghi rõ): Không                              │
+│                                                                                        │
+│ Ai đang đau (Actor)? Nhân viên tiếp nhận/đặt lịch; người yêu cầu phải cung cấp và xác  │
+│ nhận thông tin nhiều lần.                                                              │
+│                                                                                        │
+│ Workflow thủ công hiện tại (3-5 bước):                                                 │
+│ 1. Nhận tin → 2. Đọc/hỏi thêm → 3. Tra lịch                                            │
+│ → 4. Trao đổi phương án → 5. Xác minh và thực hiện trên hệ thống.                      │
+│                                                                                        │
+│ Bước nào tốn thời gian/lỗi nhất? Bước 2 và 4 (3 + 3 = 6 phút/lượt trong tổng 10 phút;  │
+│ giả định).                                                                             │
+│ AI có thể nhảy vào hỗ trợ ở bước nào? Bước 2: trích ý định và trường dữ liệu; bước 4:  │
+│ soạn nháp hỏi bổ sung hoặc đề xuất. Code kiểm tra và đối chiếu lịch ở bước 3.          │
+│                                                                                        │
+│ Đo thành công bằng gì (Metric có số)? Mục tiêu giảm thao tác chủ động từ 10 xuống ≤3   │
+│ phút/lượt; 10/10 ca lab giữ nhãn nháp và chờ duyệt, 0 slot bịa. Hiệu quả thời gian     │
+│ chưa được đo thực tế.                                                                  │
+│                                                                                        │
+│ Quick Architecture: [ ] No AI  [x] Rule  [x] LLM  [ ] Agent                            │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
-### Card 2 — Hướng dẫn thủ tục hành chính
+**Ranh giới:** Không tự xác nhận lịch, tư vấn y tế hoặc chọn chuyên khoa từ triệu chứng; chỉ dùng dữ liệu giả lập.
 
-| Thành phần | Nội dung |
-|---|---|
-| Bài toán | Soạn nháp câu trả lời về giấy tờ và quy trình đến khám từ tài liệu đã được duyệt. |
-| Actor | Nhân viên tổng đài/tiếp nhận và người đến khám. |
-| Current workflow | Đọc câu hỏi → xác định thủ tục → tìm tài liệu → soạn trả lời → kiểm tra và gửi. |
-| Bottleneck | Tìm tài liệu và viết lại: giả định 4 phút trong tổng 6 phút/yêu cầu. |
-| AI hỗ trợ | Tìm đoạn liên quan và diễn đạt thành nháp, đính kèm tài liệu nguồn. |
-| Metric | Mục tiêu chưa đo: tổng thao tác ≤2 phút; 100% câu trả lời có nguồn phù hợp hoặc chuyển nhân viên khi thiếu nguồn. |
-| Quick architecture | Rule cho FAQ cố định; LLM + truy xuất tài liệu khi cách hỏi đa dạng. |
-| Ranh giới | Không tự thêm phí, điều kiện bảo hiểm hoặc hướng dẫn chuyên môn; nhân viên duyệt. |
+```text
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ QUICK PROBLEM CARD #2                                                                  │
+│                                                                                        │
+│ Bài toán (1 câu): Soạn nháp câu trả lời về giấy tờ và thủ tục đến khám từ tài liệu     │
+│ hành chính đã được duyệt.                                                              │
+│ Công ty thành viên: [ ] VinFast  [ ] Xanh SM  [ ] Vinhomes                             │
+│                     [x] Vinmec   [ ] Khác (Ghi rõ): Không                              │
+│                                                                                        │
+│ Ai đang đau (Actor)? Nhân viên tổng đài/tiếp nhận phải tìm và viết lại hướng dẫn;      │
+│ người đến khám cần câu trả lời dễ hiểu.                                                │
+│                                                                                        │
+│ Workflow thủ công hiện tại (3-5 bước):                                                 │
+│ 1. Đọc câu hỏi → 2. Xác định thủ tục → 3. Tìm tài liệu                                 │
+│ → 4. Soạn trả lời → 5. Kiểm tra và gửi.                                                │
+│                                                                                        │
+│ Bước nào tốn thời gian/lỗi nhất? Bước 3 và 4 (tổng 4 phút/lượt trong tổng 6 phút; giả  │
+│ định).                                                                                 │
+│ AI có thể nhảy vào hỗ trợ ở bước nào? Bước 3-4: tìm đoạn liên quan và diễn đạt thành   │
+│ nháp, kèm tài liệu nguồn; nhân viên duyệt tại bước 5.                                  │
+│                                                                                        │
+│ Đo thành công bằng gì (Metric có số)? Mục tiêu giảm tổng thao tác từ 6 xuống ≤2        │
+│ phút/lượt; 100% nháp có nguồn phù hợp hoặc chuyển nhân viên khi thiếu nguồn. Đây là    │
+│ mục tiêu chưa đo.                                                                      │
+│                                                                                        │
+│ Quick Architecture: [ ] No AI  [x] Rule  [x] LLM  [ ] Agent                            │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
-### Card 3 — Phân loại phản hồi dịch vụ
+**Ranh giới:** Rule xử lý FAQ cố định; LLM truy xuất và diễn đạt tài liệu. Không tự thêm phí, điều kiện bảo hiểm hoặc hướng dẫn chuyên môn; nhân viên duyệt.
 
-| Thành phần | Nội dung |
-|---|---|
-| Bài toán | Đề xuất chuyển góp ý dịch vụ đến đúng bộ phận, giảm đọc và phân loại thủ công. |
-| Actor | Nhân viên chăm sóc khách hàng và đầu mối xử lý phản hồi. |
-| Current workflow | Nhận góp ý → đọc → phân loại → chuyển bộ phận → theo dõi và phản hồi. |
-| Bottleneck | Đọc/phân loại: giả định 3 phút trong tổng 5 phút thao tác/yêu cầu. |
-| AI hỗ trợ | Tóm tắt ý chính, đề xuất nhãn và bộ phận tiếp nhận theo danh mục duyệt trước. |
-| Metric | Mục tiêu chưa đo: ≥90% đề xuất trùng nhãn nhân viên trên 50 phản hồi gán nhãn; phân loại ≤30 giây. |
-| Quick architecture | Rule cho từ khóa rõ; LLM Feature cho văn bản dài hoặc nhiều ý. |
-| Ranh giới | Không tự đóng phản hồi, hứa bồi thường hoặc đánh giá đúng/sai về chuyên môn. |
+```text
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ QUICK PROBLEM CARD #3                                                                  │
+│                                                                                        │
+│ Bài toán (1 câu): Phân loại phản hồi dịch vụ và đề xuất chuyển đến đúng bộ phận để     │
+│ nhân viên kiểm tra.                                                                    │
+│ Công ty thành viên: [ ] VinFast  [ ] Xanh SM  [ ] Vinhomes                             │
+│                     [x] Vinmec   [ ] Khác (Ghi rõ): Không                              │
+│                                                                                        │
+│ Ai đang đau (Actor)? Nhân viên chăm sóc khách hàng, đầu mối xử lý phản hồi và người    │
+│ gửi góp ý bị chuyển nhầm bộ phận.                                                      │
+│                                                                                        │
+│ Workflow thủ công hiện tại (3-5 bước):                                                 │
+│ 1. Nhận góp ý → 2. Đọc → 3. Phân loại                                                  │
+│ → 4. Chuyển bộ phận → 5. Theo dõi và phản hồi.                                         │
+│                                                                                        │
+│ Bước nào tốn thời gian/lỗi nhất? Bước 2 và 3 (tổng 3 phút/lượt trong tổng 5 phút; giả  │
+│ định).                                                                                 │
+│ AI có thể nhảy vào hỗ trợ ở bước nào? Bước 2-3: tóm tắt ý chính, đề xuất nhãn và bộ    │
+│ phận theo danh mục duyệt trước; nhân viên duyệt trước khi chuyển ở bước 4.             │
+│                                                                                        │
+│ Đo thành công bằng gì (Metric có số)? Mục tiêu ≥90% đề xuất trùng nhãn nhân viên trên  │
+│ 50 phản hồi gán nhãn; đọc/phân loại từ 3 phút xuống ≤30 giây/lượt. Đây là mục tiêu     │
+│ chưa đo.                                                                               │
+│                                                                                        │
+│ Quick Architecture: [ ] No AI  [x] Rule  [x] LLM  [ ] Agent                            │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Ranh giới:** Rule xử lý từ khóa rõ, LLM hỗ trợ văn bản dài/nhiều ý. Không tự đóng phản hồi, hứa bồi thường hoặc đánh giá đúng/sai chuyên môn.
+
 
 ## Chọn Card 1 để deep-dive
 
