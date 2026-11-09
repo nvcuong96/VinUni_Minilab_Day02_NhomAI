@@ -1,4 +1,36 @@
+# Bài cá nhân — Trợ lý lịch hẹn Vinmec
+
+Prototype chỉ soạn nháp đặt/đổi/hủy lịch từ dữ liệu giả lập; nhân viên xác minh và duyệt. Không thao tác lịch thật, gửi tin hoặc tư vấn y tế. Quyết định vận hành: **NOT YET**.
+
+Bài nộp gồm [quét cơ hội](01-problem-scan.md), [báo cáo deep-dive](02-deep-dive-report.md), [AI log](03-ai-log.md), [sơ đồ hiện trạng](04-workflow-diagram.png) và [code Python](starter-code/prompt_prototype.py). Bộ test nằm ngay trong file Python; kết quả chạy và log bộ chấm đã gộp vào phụ lục báo cáo, không có thư mục phụ.
+
+## Chạy trên Windows PowerShell
+
+```powershell
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m pytest starter-code\prompt_prototype.py -q
+.venv\Scripts\python.exe starter-code\prompt_prototype.py --offline
+
+# Nhập key kín, không ghi key vào lịch sử lệnh.
+$vinmecSecureKey = Read-Host 'Gemini API key' -AsSecureString
+$env:GEMINI_API_KEY = [System.Net.NetworkCredential]::new('', $vinmecSecureKey).Password
+.venv\Scripts\python.exe starter-code\prompt_prototype.py --live --model gemini-3.5-flash-lite
+Remove-Item Env:GEMINI_API_KEY
+```
+
+Nếu chưa có `.venv`, tạo bằng `python -m venv .venv`. Chương trình đọc biến môi trường, không tự nạp `.env`. Không đưa khóa hoặc dữ liệu thật vào Git. Bỏ `--model` để dùng `gemini-2.5-flash` theo đề; cũng có thể đặt biến môi trường `GEMINI_MODEL`. `--output <path>` chỉ dùng khi chủ động muốn lưu thêm JSON, mặc định không tạo file kết quả.
+
+Đã kiểm chứng: **31 test cục bộ đạt**, **10/10 fixture offline**, **10/10 ca Gemini với gemini-3.5-flash-lite** trong 14,113 giây. Model mặc định 2.5 Flash trả HTTP 404 ở môi trường kiểm chứng. Autograder gốc đạt **9,50/10**, exit code **1** vì tiêu chí prompt gắn với pin xe Xanh SM; các phần còn lại đạt. Không thêm từ khóa để lách chấm; cần giảng viên xác nhận tiêu chí Vinmec và model thay thế. Điểm script không thay thế rubric 60/40 của lớp.
+
+Code giữ `evaluate_prompt(user_input: str) -> str`, trả `[DRAFT_ONLY]` rồi JSON. Fixture gồm 4 slot/2 lịch hẹn hư cấu, ngày ISO và giờ HH:MM; thiếu dữ liệu phải hỏi lại. Không có giao diện hoặc tích hợp bệnh viện.
+
+Code nộp trên nhánh cá nhân `thehung1406`. Trưởng nhóm tổng hợp báo cáo và sơ đồ lên `main`, không merge code cá nhân. Người học cần đọc và bổ sung reflection trước khi nộp.
+
+---
+
 # 📖 Hướng Dẫn Học Viên (Student Guide) — Lab 02: AI Product Scoping
+
+Phần dưới giữ lại hướng dẫn gốc của lớp; ví dụ pin xe Xanh SM và các câu lệnh mẫu không mô tả nghiệp vụ Vinmec đã triển khai ở trên.
 
 Tài liệu này hướng dẫn chi tiết cách thiết lập môi trường lập trình Python, cấu hình API Key, quy trình phân nhánh Git làm việc nhóm và chuẩn bị sản phẩm nộp bài cho **Lab 02: AI Product Scoping (Vin Smart Future)**.
 
@@ -55,17 +87,17 @@ Hãy mở terminal đã kích hoạt `(.venv)` và chạy lệnh nạp khóa tư
 ### 🪟 Trên Windows:
 *   **Nếu dùng PowerShell (Mặc định của VS Code / Cursor):**
     ```powershell
-    $env:GEMINI_API_KEY="AIzaSyYourGeminiApiKeyHere"
+    $env:GEMINI_API_KEY="<YOUR_GEMINI_API_KEY>"
     ```
 *   **Nếu dùng Command Prompt (CMD):**
     ```cmd
-    set GEMINI_API_KEY=AIzaSyYourGeminiApiKeyHere
+    set GEMINI_API_KEY=<YOUR_GEMINI_API_KEY>
     ```
 
 ### 🍎 Trên macOS / Linux:
 *   **Dùng Terminal:**
     ```bash
-    export GEMINI_API_KEY="AIzaSyYourGeminiApiKeyHere"
+    export GEMINI_API_KEY="<YOUR_GEMINI_API_KEY>"
     ```
 
 ### 🧪 Kiểm tra xem API Key đã nhận diện chưa:
