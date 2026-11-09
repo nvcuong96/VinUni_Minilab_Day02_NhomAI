@@ -3,10 +3,15 @@
 - **Tên nhóm:** NhómAI
 - **Người thực hiện:** Nguyễn Nhật Minh
 
-| Họ và tên thành viên tham gia | Email |
+**Thành viên tham gia:**
+
+| Họ và tên | Email |
 |---|---|
-| Nguyễn Nhật Minh |  |
-|  |  |
+| Nguyễn Nhật Minh | nnhatminh2610@gmail.com|
+| Phạm Thế Hùng | thehung1406@gmail.com |
+| Ngô Duy Khánh | dtonyk231@gmail.com |
+| Phạm Đức Vinh | vinhnd.dev@gmail.com |
+| Nguyễn Văn Cường | nvcuong9696@gmail.com |
 
 > Đây là bản nháp nhật ký dựa trên quá trình làm việc đã ghi nhận. Tôi cần đọc lại, bổ sung thông tin còn thiếu và điều chỉnh phần phản ánh cá nhân trước khi nộp.
 

@@ -2,14 +2,17 @@
 
 - **Tên nhóm:** NhómAI
 - **Người thực hiện bài cá nhân:** Nguyễn Nhật Minh
-- **Email:**
+- **Email:** 
 
 **Thành viên tham gia:**
 
 | Họ và tên | Email |
 |---|---|
-| Nguyễn Nhật Minh | |
-| | |
+| Nguyễn Nhật Minh | nnhatminh2610@gmail.com|
+| Phạm Thế Hùng | thehung1406@gmail.com |
+| Ngô Duy Khánh | dtonyk231@gmail.com |
+| Phạm Đức Vinh | vinhnd.dev@gmail.com |
+| Nguyễn Văn Cường | nvcuong9696@gmail.com |
 
 > **Phân biệt bằng chứng:** Chủ đề do nhóm lựa chọn. Thời gian, chi phí, mục tiêu, quy trình và kịch bản tài chính bên dưới là **giả định/mục tiêu để lập kế hoạch**, chưa phải số liệu vận hành được Vinmec xác nhận. Chưa có log HIS/ERP, khảo sát nhân sự, kết quả prototype Vinmec hay xác nhận của dược sĩ và các bên liên quan. Phần lập trình cá nhân thực hiện bài mẫu Xanh SM theo yêu cầu lớp đã được người làm bài xác nhận; kết quả code này không phải bằng chứng cho KPI Vinmec.
 
