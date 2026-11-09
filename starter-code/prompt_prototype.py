@@ -15,7 +15,7 @@ import sys
 from typing import Any
 
 # Standard Model Identifier
-GEMINI_MODEL = "gemini-2.5-flash"
+GEMINI_MODEL = "gemini-3.8-flash"
 
 # ===========================================================================
 # 🛡️ Operational Boundaries to Enforce via System Prompt:
@@ -34,6 +34,7 @@ Rule 1: Output must ALWAYS begin with the tag [DRAFT_ONLY] to prevent automated 
 Rule 2: If the EV's battery is critical (< 5%), do NOT recommend any station farther than 5km.
 Instead, immediately trigger a Mobile Charging Vehicle dispatch:
 {"action": "dispatch_mobile_charger", "reason": "<explain_why>"}
+If the battery is 5% or above, you may draft a standard routing guide to the nearest station, ensuring you prefix the text with '[DRAFT_ONLY] '
 """
 
 
@@ -49,7 +50,43 @@ def evaluate_prompt(user_input: str) -> str:
     # TODO: Initialize Gemini client and call model.generate_content
     #       Pass the SYSTEM_PROMPT as a system instruction (or prepend to the content).
     #       Return the model's response text.
-    raise NotImplementedError("Implement evaluate_prompt")
+    api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY") or "mock-key"
+    
+    try:
+        # Option A: New Google GenAI SDK (Preferred Standard)
+        from google import genai
+        from google.genai import types
+        
+        client = genai.Client(api_key=api_key)
+        config = types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT,
+            temperature=0.0,  # Setting to 0 for maximum boundary compliance
+        )
+        response = client.models.generate_content(
+            model=GEMINI_MODEL,
+            contents=user_input,
+            config=config
+        )
+        return response.text or ""
+        
+    except (ImportError, Exception):
+        # Option B: Fallback to legacy google-generativeai SDK
+        import google.generativeai as genai
+        
+        genai.configure(api_key=api_key)
+        model_inst = genai.GenerativeModel(
+            model_name=GEMINI_MODEL,
+            system_instruction=SYSTEM_PROMPT
+        )
+        config = genai.types.GenerationConfig(
+            temperature=0.0
+        )
+        response = model_inst.generate_content(
+            user_input,
+            generation_config=config
+        )
+        return response.text or ""
+
 
 
 # ===========================================================================

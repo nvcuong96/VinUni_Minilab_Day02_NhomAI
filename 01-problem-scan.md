@@ -14,7 +14,7 @@ Dùng **4 Lenses** quét qua vận hành của các công ty thành viên Vingro
 
 # 🃏 Phase 2 — QUICK-ASSESS: 3 Quick Problem Cards (Cá nhân)
 
-Chọn top 3 từ danh sách SCAN: **#1 (VinFast AI Aftersales & Warranty Copilot), #4 (Vinmec AI Insurance Claim Document Validator), #6 (Vinmec Hủy chuyến).**
+Chọn top 3 từ danh sách SCAN: **#1 (VinFast AI Aftersales & Warranty Copilot), #4 (Vinmec AI Insurance Claim Document Validator), #6 (Vinmec Điều phối giường bệnh và quy trình xuất viện).**
 
 ## Thẻ bài toán tiêu biểu: Card #4 — Vinmec AI Insurance Claim Document Validator
 
@@ -62,10 +62,14 @@ Giảm ít nhất 50% thời gian xử lý thủ công đối với hồ sơ th�
 ---
 
 # 🗳️ Quyết định lựa chọn của nhóm:
-Nhóm quyết định chọn bài toán **"Card #2 — Xanh SM Xử lý sự cố sạc pin thực địa"** để thực hiện Deep-Dive.
+Nhóm quyết định chọn bài toán **"Vinmec — Giám sát & Cảnh báo Sớm Rủi ro Thuốc Cận Date (FEFO) (Vinmec Pharmacy Expiry Sentinel)."** để thực hiện Deep-Dive.
 
-## Lý do lựa chọn và loại bỏ các thẻ khác:
-* **Card #4 (Vinhomes CSKH):** Mặc dù tốn thời gian nhưng rủi ro sai sót thông tin liên quan đến phí quản lý, tranh chấp căn hộ có thể dẫn đến khiếu nại pháp lý nặng cho Vinhomes. Cần gom thêm dữ liệu và xử lý bằng Rule-based router trước.
-* **Card #6 (Xanh SM Hủy chuyến):** Đây là tác vụ phân tích offline (back-office), không ảnh hưởng trực tiếp đến hiệu suất vận hành thời gian thực (real-time) như sự cố hết pin của tài xế trên đường đón khách.
+* **Lý do lựa chọn:**
+  1. **Tác động kinh tế và an toàn điều trị rất lớn (High Impact):** Dược phẩm cận date hoặc hết hạn không chỉ gây tổn thất tài chính trực tiếp (giả định 0.5–2% giá trị tồn kho mỗi năm) mà còn tiềm ẩn nguy cơ an toàn y tế nghiêm trọng nếu bỏ sót lô thuốc hết hạn. Việc tự động hóa giám sát giúp loại bỏ hoàn toàn sai sót do con người rà soát thủ công.
+  2. **Ranh giới an toàn (Operational Boundary) sắc bén & chuẩn mực y tế:** Dữ liệu số lô (Lot), hạn dùng (EXP) và tốc độ tiêu thụ có cấu trúc rõ ràng. AI chỉ được phép quét cảnh báo và soạn thảo bản nháp đề xuất luân chuyển có gắn thẻ `[DRAFT_ONLY]`; AI **tuyệt đối không được tự ý ra y lệnh điều trị, không tự ý hủy thuốc hay điều chuyển** mà bắt buộc phải qua bước phê duyệt của Dược sĩ phụ trách kho và Trưởng khoa Lâm sàng (Human-in-the-loop).
+  3. **Tỷ lệ AI-Fit tối ưu (Rule Engine + LLM Feature):** Dùng Rule-based/Data Analytics tính toán tốc độ tiêu thụ và lọc hạn dùng theo nguyên tắc FEFO (chính xác 100%), kết hợp LLM để tóm tắt danh sách ưu tiên hành động và soạn nháp báo cáo/email điều chuyển thuốc chuyên nghiệp.
+* **Lý do không chọn Thẻ 1 (Vinhomes) & Thẻ 3 (VinFast):**
+  * *Thẻ 1 (Vinhomes):* Bài toán đặt tiện ích mang tính chất dịch vụ dân sự thông thường, ít rủi ro và giá trị nghiệp vụ không mang tính sống còn như kiểm soát date dược phẩm trong bệnh viện.
+  * *Thẻ 3 (VinFast):* Bài toán điều chuyển xe điện toàn quốc phụ thuộc vào mạng lưới logistics phức tạp và biến động chính sách bán hàng theo tháng, cần khối lượng dữ liệu lịch sử lớn hơn để xác lập baseline chuẩn.
 
 ---
