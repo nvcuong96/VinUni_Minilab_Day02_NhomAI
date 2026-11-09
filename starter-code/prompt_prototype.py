@@ -83,8 +83,16 @@ def evaluate_prompt(user_input: str) -> str:
     with genai.Client(
         api_key=api_key,
         http_options=types.HttpOptions(
-            timeout=12000,
-            retry_options=types.HttpRetryOptions(attempts=1),
+            # Two bounded attempts leave room for validation within the
+            # autograder's 30-second process timeout, even after a 504.
+            timeout=10000,
+            retry_options=types.HttpRetryOptions(
+                attempts=2,
+                initial_delay=0.5,
+                max_delay=0.5,
+                jitter=0,
+                http_status_codes=[408, 429, 500, 502, 503, 504],
+            ),
         ),
     ) as client:
         response = client.models.generate_content(

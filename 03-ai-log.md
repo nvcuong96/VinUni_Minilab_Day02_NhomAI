@@ -15,3 +15,7 @@ Ví dụ trong tài liệu dùng quy trình và thời gian cụ thể, nhưng c
 Code mẫu xem việc nhắc đến cứu hộ như dấu hiệu ca pin yếu đã đạt. Kiểm tra đó có thể bỏ sót một bản nháp vừa nhắc cứu hộ vừa chỉ đường đến trạm xa. Prototype mới đối chiếu action và mã trạm với rule, đồng thời yêu cầu lý do theo mẫu cố định cho ca pin yếu. Với các nháp còn lại, nhân viên vẫn cần đọc nội dung trước khi duyệt.
 
 Khi chạy thật, lựa chọn Gemini 2.5 Flash trong kế hoạch trả HTTP 404. Kiểm tra lại bằng API cho thấy model này không còn khả dụng với khóa thử nghiệm. Bản cuối dùng Gemini 3.1 Flash Lite và đạt ba ca. Kết quả này được ghi riêng với kiểm thử cục bộ dùng phản hồi giả.
+
+## Kiểm tra trước khi nộp
+
+Khi yêu cầu AI chạy lại autograder, bài đạt 8/10 do một lời gọi Gemini trả lỗi máy chủ HTTP 504. AI bổ sung tối đa hai lần gọi cho mỗi yêu cầu, timeout 10 giây mỗi lần và khoảng chờ thử lại 0,5 giây cho các lỗi API tạm thời. Ba ca vẫn chạy song song để phù hợp giới hạn 30 giây của autograder. Lần chấm sau sửa đạt 10/10; không thay đổi autograder hoặc bỏ kiểm tra đầu ra. Nếu API tiếp tục lỗi, ca thử vẫn được báo Failed và chuyển sang nháp kiểm tra thủ công, không coi đó là bằng chứng mô hình đã vượt kiểm thử.
