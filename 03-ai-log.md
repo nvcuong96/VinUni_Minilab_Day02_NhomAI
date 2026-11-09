@@ -64,3 +64,7 @@ Theo yêu cầu mới nhất, giữ `01-problem-scan.md`, `03-ai-log.md` và `st
 Người học chạy live và gửi kết quả 9/10. Trong ca `reschedule`, Gemini trả `facility=null` và `specialty="DEMO-A"` thay vì `facility="DEMO-A"`, `specialty=null`. Mã cơ sở có trong tin nhắn nên vượt kiểm tra bằng chứng nguyên văn, nhưng bị phân loại sai trường. Code giữ đúng ranh giới: hỏi bổ sung cơ sở, không tự chọn slot hoặc xác nhận đã đổi lịch.
 
 Trợ lý làm rõ định nghĩa cơ sở/chuyên khoa/bác sĩ trong system prompt và thêm mô tả từng trường vào JSON schema; đặc biệt giải thích cụm “sang DEMO-A” là cơ sở mới. Giữ nguyên tin nhắn test và đáp án kỳ vọng. Sau sửa: **31 test cục bộ đạt trong 0,65 giây**, **10/10 offline**. Lần thử riêng ca đổi lịch bằng API tại môi trường trợ lý trả `API_ERROR`, nên chưa xác nhận sửa lỗi thành công trên Gemini; người học cần chạy lại live. Người học đã yêu cầu commit và push thay đổi này lên nhánh `thehung1406`.
+
+## 10. Tạo lại báo cáo và sơ đồ phần nhóm
+
+Người học yêu cầu làm lại `02-deep-dive-report.md` và `04-workflow-diagram.png`. Trợ lý khôi phục sơ đồ current state 5 bước, thời gian giả định 10 phút; viết lại báo cáo cho nhất quán với ba Quick Cards và prototype hiện tại. Báo cáo phân biệt kết quả live lịch sử với lỗi đổi lịch người học đã quan sát và trạng thái chưa xác nhận sau sửa prompt. Quyết định vẫn là NOT YET cho vận hành thực tế; không tạo số liệu khảo sát hoặc kết quả live mới. Người học sau đó yêu cầu commit và push các file được tạo lại lên nhánh `thehung1406`.
