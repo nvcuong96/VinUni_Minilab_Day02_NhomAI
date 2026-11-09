@@ -20,7 +20,7 @@ load_dotenv()
 
 # Standard Model Identifier
 # gemini-2.5-flash trả 404 "no longer available to new users" với API key mới → dùng bản Flash còn hoạt động.
-GEMINI_MODEL = "gemini-3.6-flash"
+GEMINI_MODEL = "gemini-3.1-flash-lite"
 
 # ===========================================================================
 # 🛡️ Operational Boundaries to Enforce via System Prompt:
